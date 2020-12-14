@@ -59,7 +59,7 @@ async def print_changelogs(event, ac_br, changelog):
             reply_to=event.id,
         )
         await event.delete()
-        msg = await event.respond('do "`.update now` or `.update deploy`" to update.')
+        msg = await event.respond('Lakukan "`.update sekarang` atau `.update deploy`" untuk update.')
         await asyncio.sleep(15)
         await cl.delete()
         await msg.delete()
@@ -142,7 +142,7 @@ async def update(event, repo, ups_rem, ac_br):
         repo.git.reset("--hard", "FETCH_HEAD")
     await update_requirements()
     await event.edit(
-        "`Successfully Updated!\n" "ProjectAlf is restarting... Wait for a second!`"
+        "`Success terupdate!\n" "ProjectAbu Sedang Di Restart... Tunggu Beberapa Detik`"
     )
     await asyncio.sleep(15)
     await event.delete()
@@ -154,13 +154,13 @@ async def update(event, repo, ups_rem, ac_br):
 
 @register(outgoing=True, pattern=r"^\.update( now| deploy|$)")
 async def upstream(event):
-    await event.edit("`Getting information....`")
+    await event.edit("`Mencari Informasi....`")
     conf = event.pattern_match.group(1).strip()
     off_repo = UPSTREAM_REPO_URL
     force_update = False
     try:
-        txt = "`Oops.. Updater cannot continue due to "
-        txt += "some problems occured`\n\n**LOGTRACE:**\n"
+        txt = "`Oops.. Update userbot tidak bisa di lanjutkan "
+        txt += "karena ada masalah xixixi`\n\n**LOGTRACE:**\n"
         repo = Repo()
     except NoSuchPathError as error:
         await event.edit(f"{txt}\n`directory {error} is not found`")
@@ -212,7 +212,7 @@ async def upstream(event):
 
     if changelog == "" and not force_update:
         await event.edit(
-            "\n`ProjectAlf is`  **up-to-date**  `on`  " f"**{UPSTREAM_REPO_BRANCH}**\n"
+            "\n`ProjectAbu Terupdate Dgn`  **up-to-date**  `on`  " f"**{UPSTREAM_REPO_BRANCH}**\n"
         )
         await asyncio.sleep(15)
         await event.delete()
@@ -227,7 +227,7 @@ async def upstream(event):
             "`Force-Syncing to latest stable userbot code, please wait...`"
         )
     if conf == "now":
-        await event.edit("`Updating ProjectAlf, please wait....`")
+        await event.edit("`Updating ProjectAbu, mohon menunggu....`")
         await update(event, repo, ups_rem, ac_br)
         await asyncio.sleep(15)
         await event.delete()
