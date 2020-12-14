@@ -191,7 +191,7 @@ async def notifon(non_event):
     await non_event.edit("`Notifications from unapproved PM's unmuted!`")
 
 
-@register(outgoing=True, pattern=r"^\.approve$")
+@register(outgoing=True, pattern=r"^\.trx$")
 async def approvepm(apprvpm):
     try:
         from userbot.modules.sql_helper.globals import gvarstatus
@@ -226,18 +226,18 @@ async def approvepm(apprvpm):
     try:
         approve(uid)
     except IntegrityError:
-        return await apprvpm.edit("`User may already be approved.`")
+        return await apprvpm.edit("`User ini mungkin sudah melakukan transaksi`")
 
-    await apprvpm.edit(f"[{name0}](tg://user?id={uid}) `approved to PM!`")
+    await apprvpm.edit(f"[{name0}](tg://user?id={uid}) `Sedang Transaksi`")
 
     if BOTLOG:
         await apprvpm.client.send_message(
             BOTLOG_CHATID,
-            "#APPROVED\n" + "User: " + f"[{name0}](tg://user?id={uid})",
+            "#Sedang Transaksi\n" + "Dengan: " + f"[{name0}](tg://user?id={uid})",
         )
 
 
-@register(outgoing=True, pattern=r"^\.disapprove$")
+@register(outgoing=True, pattern=r"^\.untrx$")
 async def disapprovepm(disapprvpm):
     try:
         from userbot.modules.sql_helper.pm_permit_sql import dissprove
@@ -256,14 +256,14 @@ async def disapprovepm(disapprvpm):
         name0 = str(aname.first_name)
 
     await disapprvpm.edit(
-        f"[{name0}](tg://user?id={disapprvpm.chat_id}) `Disaproved to PM!`"
+        f"[{name0}](tg://user?id={disapprvpm.chat_id}) `Transaksi Selesai`"
     )
 
     if BOTLOG:
         await disapprvpm.client.send_message(
             BOTLOG_CHATID,
             f"[{name0}](tg://user?id={disapprvpm.chat_id})"
-            " was disapproved to PM you.",
+            " Transaksi Selesai.",
         )
 
 
